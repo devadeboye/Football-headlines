@@ -1,5 +1,6 @@
 import mechanicalsoup
 import re
+import time
 
 
 
@@ -28,8 +29,8 @@ class Goal:
                 raise_on_404=True,
                 user_agent='Mozilla/5.0 (Windows NT 6.1; WOW64; rv:64.0) Gecko/20100101 Firefox/64.0'
             )
-            # temporarily store and filter the headline
-            self.temp = set()
+            # storage for filtered headline
+            self.headlines = None
 
         #-------------------------------------------------
 
@@ -46,12 +47,8 @@ class Goal:
             # create the news regex pattern
             news_regex_obj = re.compile(r'title="(.+)">')
 
-            # filter the headlines
-            for i in raw_headlines:
-                j = news_regex_obj.search(str(i))
-                #print(j.group(1))
-                self.temp.add(j.group(1))
-                print(len(self.temp))
+            # filter the headlines using set comprehension
+            self.headlines = {(news_regex_obj.search(str(i)).group(1)) for i in raw_headlines}
 
         #----------------------------------------------------------------
 
@@ -62,7 +59,7 @@ class Goal:
             # open a txt file to write the news
             f = open('FBnews.txt', 'a')
             # write each news in the set to file
-            for i in self.temp:
+            for i in self.headlines:
                 f.write(i+'\n\n')
             print('completed')
 
@@ -77,9 +74,18 @@ class Goal:
     #-----------------------------------------------------
 
     def get_news(self):
+        print('wait while i get things ready')
+        time.sleep(2)
         l = self._FootballNews()
+        print('loading...')
+        time.sleep(2)
+        print('fetching news from goal.com...')
         l._fetch_news()
+        print('getting ready to write news to file')
         l._rite()
+        print('done writting news to file')
+        time.sleep(2)
+        print('closing the browser...')
         l._close_browser()
 
     
@@ -87,3 +93,4 @@ class Goal:
 #------------ test --------------
 if __name__ == '__main__':
     Goal().get_news()
+    time.sleep(10)
