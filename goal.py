@@ -39,7 +39,7 @@ class Goal:
             A non-public method to get the news headlines.
             """
             # open browser and go to goal.com
-            self.browser.open('http://goal.com/en')
+            self.browser.open('https://www.goal.com/en/news/1')
 
             # get latest headlines and store in the variable
             raw_headlines = self.browser.get_current_page().find_all('h3')
