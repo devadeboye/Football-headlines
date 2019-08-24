@@ -50,20 +50,13 @@ class Goal:
             # filter the headlines using set comprehension
             self.headlines = {(news_regex_obj.search(str(i)).group(1)) for i in raw_headlines}
 
-        #----------------------------------------------------------------
-
-        def _rite(self):
-            """
-            A non-public method that writes the news to file
-            """
-            # open a txt file to write the news
-            f = open('FBnews.txt', 'a')
-            # write each news in the set to file
+            # output each line of news to screen
             for i in self.headlines:
-                f.write(i+'\n\n')
-            print('completed')
+                print(i+'\n\n')
+            # use input to delay the screen from going off
+            input()
 
-        #-----------------------------------------------------
+        #----------------------------------------------------------------
 
         def _close_browser(self):
             """
@@ -79,13 +72,8 @@ class Goal:
         l = self._FootballNews()
         print('loading...')
         time.sleep(2)
-        print('fetching news from goal.com...')
+        print('fetching news from goal.com...\n')
         l._fetch_news()
-        print('getting ready to write news to file')
-        l._rite()
-        print('done writting news to file')
-        time.sleep(2)
-        print('closing the browser...')
         l._close_browser()
 
     
