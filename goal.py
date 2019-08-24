@@ -92,5 +92,8 @@ class Goal:
 
 #------------ test --------------
 if __name__ == '__main__':
-    Goal().get_news()
+    try:
+        Goal().get_news()
+    except Exception as error:
+        print(error)
     time.sleep(10)
