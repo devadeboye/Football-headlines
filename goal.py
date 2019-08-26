@@ -53,8 +53,6 @@ class Goal:
             # output each line of news to screen
             for i in self.headlines:
                 print(i+'\n\n')
-            # use input to delay the screen from going off
-            input()
 
         #----------------------------------------------------------------
 
@@ -84,4 +82,4 @@ if __name__ == '__main__':
         Goal().get_news()
     except Exception as error:
         print(error)
-    time.sleep(10)
+    input()
