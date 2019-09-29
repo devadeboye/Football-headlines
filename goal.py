@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import mechanicalsoup
 import re
 import time
@@ -70,16 +72,23 @@ class Goal:
         l = self._FootballNews()
         print('loading...')
         time.sleep(2)
-        print('fetching news from goal.com...\n')
+        print('fetching news headlines from goal.com...\n')
         l._fetch_news()
         l._close_browser()
 
     
 
 #------------ test --------------
-if __name__ == '__main__':
+def main():
     try:
         Goal().get_news()
-    except Exception as error:
-        print(error)
+    except Exception:
+        print('fail to connect')
+        time.sleep(3)
+        print("i'm gonna retry now...")
+        main()
     input()
+
+
+if __name__ == '__main__':
+    main()
