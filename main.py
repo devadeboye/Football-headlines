@@ -19,7 +19,7 @@ class Goal:
                 )
             )
 
-        def _fetch_news(self):
+        def fetch_news(self):
             self.browser.open('https://www.goal.com/en/news/1')
             raw_headlines = self.browser.get_current_page().find_all('h3')
             self.headlines = self.filter_headlines(raw_headlines)
@@ -36,7 +36,7 @@ class Goal:
             for i in self.headlines:
                 print(i+'\n\n')
 
-        def _close_browser(self):     
+        def close_browser(self):     
             self.browser.close()
 
 
@@ -45,22 +45,19 @@ class Goal:
         print('loading...')
         time.sleep(2)
         print('fetching news headlines from goal.com...\n')
-        l._fetch_news()
-        l._close_browser()
+        l.fetch_news()
+        l.close_browser()
 
-    
-
-#------------ test --------------
-def main():
-    try:
-        Goal().get_news()
-    except Exception:
-        print('fail to connect')
-        time.sleep(3)
-        print("i'm gonna retry now...")
-        main()
-    input()
+    def start(self):
+        try:
+            self.get_news()
+        except Exception:
+            print('fail to connect')
+            time.sleep(3)
+            print("i'm gonna retry now...")
+            self.start()
+        input()
 
 
 if __name__ == '__main__':
-    main()
+    Goal().start()
